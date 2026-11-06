@@ -1,0 +1,49 @@
+{% set version = "1.0.0" %}
+
+package:
+  name: coccivr
+  version: {{ version }}
+
+source:
+  path: ../../coccivr
+
+build:
+  noarch: python
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  entry_points:
+    - coccivr = coccivr.cli:main
+
+requirements:
+  host:
+    - python >=3.9
+    - pip
+    - setuptools
+  run:
+    - python >=3.9
+    - click
+    - blast >=2.14
+    - diamond >=2.2
+    - ncbi-amrfinderplus >=3.11
+
+test:
+  imports:
+    - coccivr
+  commands:
+    - coccivr --version
+    - coccivr --help
+
+about:
+  home: https://github.com/Guilai-Jiang/CocciVR
+  license: GPL-3.0-or-later
+  license_family: GPL3
+  license_file:
+    - LICENSE
+    - COPYING
+  summary: Virulence, resistance and SCCmec profiling for Gram-positive cocci
+  dev_url: https://github.com/Guilai-Jiang/CocciVR
+
+extra:
+  recipe-maintainers:
+    - Guilai-Jiang
+    - zheminzhou

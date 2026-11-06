@@ -1,0 +1,80 @@
+name: build-conda
+
+on:
+  push:
+    tags:
+      - 'v*'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install
+        run: pip install . pytest
+
+      - name: Test
+        run: pytest -q
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+          channels: conda-forge,bioconda
+          channel-priority: strict
+          conda-remove-defaults: true
+
+      - name: Check version matches tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          grep -q "__version__ = \"${tag}\"" coccivr/__init__.py \
+            || { echo "::error::tag ${GITHUB_REF_NAME} does not match coccivr/__init__.py"; exit 1; }
+
+      - name: Install conda-build
+        shell: bash -el {0}
+        run: conda install -y -c conda-forge conda-build
+
+      - name: Build
+        shell: bash -el {0}
+        run: |
+          set -o pipefail
+          conda-build conda/recipe --no-test --output-folder dist 2>&1 | tee build.log
+
+      - name: Report build failure
+        if: failure()
+        shell: bash -el {0}
+        run: |
+          msg=$(tail -n 60 build.log 2>/dev/null | sed 's/%/%25/g; s/\r/%0D/g' | awk '{printf "%s%%0A", $0}')
+          echo "::error title=conda build failed::${msg}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: conda-package
+          path: dist/noarch/*.conda
+
+      - name: Attach package to the GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/noarch/*.conda

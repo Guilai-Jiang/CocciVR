@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coccivr"
+dynamic = ["version"]
+description = "Virulence, resistance and SCCmec profiling for Gram-positive cocci"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE", "COPYING"]
+authors = [
+    { name = "Guilai Jiang", email = "gljiang@alu.suda.edu.cn" },
+    { name = "Zhemin Zhou" },
+]
+dependencies = ["click"]
+
+[project.scripts]
+coccivr = "coccivr.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "coccivr.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["coccivr*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
