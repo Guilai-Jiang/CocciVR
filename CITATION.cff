@@ -7,9 +7,6 @@ authors:
   - family-names: Jiang
     given-names: Guilai
     email: gljiang@alu.suda.edu.cn
-  - family-names: Zhou
-    given-names: Zhemin
-    website: https://github.com/zheminzhou
 version: 1.0.0
 date-released: 2026-11-06
 license: GPL-3.0-or-later
