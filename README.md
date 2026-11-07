@@ -74,14 +74,6 @@ With no module flag, all three modules run.
 | `*.vf.txt` | virulence gene hits |
 | `*.amr.txt` | resistance gene hits |
 
-## Citation
-
-> Jiang G, Guo C, Hua Y, Wu C, Li S, Wang Y, Zhao J, Ji L, Cheng Y, Zhou Z,
-> Wu X, Li H. **Large-scale genomic analysis places Chinese CC398 as a
-> persistent human-associated MSSA lineage apart from the dominant global
-> LA-MRSA clade.** *mSystems*. 2026;11(10).
-> [doi:10.1128/msystems.00621-26](https://doi.org/10.1128/msystems.00621-26)
-
 ## License
 
 GPL-3.0-or-later. See [LICENSE](LICENSE) and [COPYING](COPYING). Database terms

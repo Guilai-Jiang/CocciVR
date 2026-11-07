@@ -11,36 +11,3 @@ version: 1.0.0
 date-released: 2026-11-06
 license: GPL-3.0-or-later
 repository-code: https://github.com/Guilai-Jiang/CocciVR
-preferred-citation:
-  type: article
-  title: "Large-scale genomic analysis places Chinese CC398 as a persistent human-associated MSSA lineage apart from the dominant global LA-MRSA clade"
-  authors:
-    - family-names: Jiang
-      given-names: Guilai
-    - family-names: Guo
-      given-names: Changyuan
-    - family-names: Hua
-      given-names: Yulin
-    - family-names: Wu
-      given-names: Chaoshen
-    - family-names: Li
-      given-names: Shengkai
-    - family-names: Wang
-      given-names: Yuezhuo
-    - family-names: Zhao
-      given-names: Jun
-    - family-names: Ji
-      given-names: Linli
-    - family-names: Cheng
-      given-names: Yijie
-    - family-names: Zhou
-      given-names: Zhemin
-    - family-names: Wu
-      given-names: Xuejie
-    - family-names: Li
-      given-names: Heng
-  journal: mSystems
-  volume: 11
-  issue: 10
-  year: 2026
-  doi: 10.1128/msystems.00621-26
